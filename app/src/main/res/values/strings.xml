@@ -14,4 +14,13 @@
     <string name="add_image_button">Add image</string>
     <string name="add_picture_title">Select a picture for observation</string>
     <string name="observation_image">Image</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude_abbrv">Lat.</string>
+    <string name="longitude_abbrv">Lon.</string>
+    <string name="gps_enable_prompt">Enable Gps?</string>
+    <string name="gps_enable_message">In order to save the location of observation, gps has to be turned on. Turn gps on?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancel</string>
 </resources>
