@@ -34,7 +34,7 @@ class ObservationAdapter(private var observations: List<ObservationEntity>):Recy
         holder.time.text = "Time: " + timeFormatter.format(observations[position].date)
 
         holder.latitude.text = "Lat. " + observations[position].latitude
-        holder.longitude.text = "Long. " + observations[position].longitude
+        holder.longitude.text = "Lon. " + observations[position].longitude
     }
 
 
