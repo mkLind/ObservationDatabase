@@ -75,7 +75,7 @@
                     android:text="@string/note_hint"
                     android:textStyle="bold"
                     android:layout_below="@id/rarities"
-                    android:layout_width="match_parent"
+                    android:layout_width="56dp"
                     android:layout_height="wrap_content"/>
 
             <EditText
