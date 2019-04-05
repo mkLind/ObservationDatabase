@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:showIn="@layout/activity_observation_input"
+        tools:context=".ObservationInput">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/species_label"
+                    android:layout_marginTop="@dimen/form_margin_top"
+                    android:layout_marginLeft="@dimen/form_margin_left"
+                    android:text="@string/species_hint"
+                    android:textStyle="bold"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"/>
+
+            <EditText
+                    android:id="@+id/species"
+                    android:layout_below="@id/species_label"
+                    android:layout_width="220dp"
+                    android:layout_height="40dp"
+                    android:inputType="textCapSentences"
+                    android:background="@drawable/round_corner"
+                    android:layout_marginLeft="@dimen/form_margin_left"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"/>
+
+            <TextView
+                    android:id="@+id/rarity_label"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginLeft="@dimen/form_margin_left"
+                    android:text="@string/rarity_hint"
+                    android:layout_below="@id/species"
+                    android:textStyle="bold"
+                    android:layout_width="220dp"
+                    android:inputType="textCapSentences"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginEnd="0dp"/>
+
+            <Spinner
+                    android:id="@+id/rarities"
+                    android:layout_below="@id/rarity_label"
+                    android:layout_height="40dp"
+                    android:layout_width="220dp"
+                    android:background="@drawable/round_corner"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginLeft="@dimen/form_margin_left"
+                    >
+
+            </Spinner>
+
+            <TextView
+                    android:id="@+id/note_label"
+                    android:layout_marginTop="@dimen/form_margin_top"
+                    android:text="@string/note_hint"
+                    android:textStyle="bold"
+                    android:layout_below="@id/rarities"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            <EditText
+                    android:id="@+id/notes"
+                    android:layout_width="match_parent"
+                    android:layout_below="@id/note_label"
+                    android:background="@drawable/round_corner"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:paddingBottom="200dp"
+                    android:paddingLeft="10dp"
+                    android:imeOptions="actionDone"
+                    android:layout_height="@dimen/form_bigger_element_height"/>
+
+            <Button
+                    android:text="@string/save_button_text"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="140dp"
+                    android:layout_below="@id/notes"
+                    android:layout_height="50dp"
+                    android:background="@color/colorPrimary"
+                    android:id="@+id/save_button"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="48dp"
+                    android:layout_marginStart="48dp"
+                    android:layout_alignParentLeft="true"/>
+
+            <Button
+                    android:layout_width="140dp"
+                    android:layout_height="50dp"
+                    android:text="@string/add_image_button"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="49dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/colorPrimary"
+                    android:id="@+id/imageButton"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginRight="48dp"/>
+
+            <ImageView
+                    android:layout_width="@dimen/image_thumbnail_width_form"
+                    android:layout_height="@dimen/image_thumbnail_height_form"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="1dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:id="@+id/speciesImage"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/round_corner"
+                    android:layout_marginLeft="1dp"/>
+
+            <TextView
+                    android:text="@string/observation_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="6dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:id="@+id/imageLabel"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="6dp"/>
+
+
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

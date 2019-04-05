@@ -1,0 +1,10 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="form_margin_top">20dp</dimen>
+    <dimen name="form_margin_left">10dp</dimen>
+    <dimen name="form_small_elem_height">40dp</dimen>
+    <dimen name="listing_half_label_height">20dp</dimen>
+    <dimen name="form_bigger_element_height">250dp</dimen>
+    <dimen name="image_thumbnail_width_form">133dp</dimen>
+    <dimen name="image_thumbnail_height_form">133dp</dimen>
+</resources>

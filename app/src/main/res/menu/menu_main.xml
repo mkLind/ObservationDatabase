@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.example.observationdatabase.MainActivity">
+    <item android:id="@+id/order_ascending"
+          android:title="@string/action_order_ascending"
+          android:orderInCategory="100"
+          app:showAsAction="never"/>
+    <item android:id="@+id/order_descending"
+          android:title="@string/action_order_descending"
+          android:orderInCategory="100"
+          app:showAsAction="never"/>
+</menu>

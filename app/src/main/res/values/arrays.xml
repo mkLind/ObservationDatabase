@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="rarities">
+        <item>@string/rarity_common</item>
+        <item>@string/rarity_rare</item>
+        <item>@string/rarity_extremely_rare</item>
+    </string-array>
+</resources>

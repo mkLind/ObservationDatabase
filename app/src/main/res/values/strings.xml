@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">ObservationDatabase</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_order_descending">Oldest first</string>
+    <string name="action_order_ascending">Newest first</string>
+    <string name="title_activity_observation_input">Observation_input</string>
+    <string name="species_hint">Species</string>
+    <string name="note_hint">Note</string>
+    <string name="rarity_hint">Rarity</string>
+    <string name="rarity_common">common</string>
+    <string name="rarity_rare">rare</string>
+    <string name="rarity_extremely_rare">extremely rare</string>
+    <string name="save_button_text">Save</string>
+    <string name="add_image_button">Add image</string>
+    <string name="add_picture_title">Select a picture for observation</string>
+    <string name="observation_image">Image</string>
+</resources>
