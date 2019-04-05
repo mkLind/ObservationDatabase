@@ -3,6 +3,7 @@ package com.example.observationdatabase
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
@@ -29,11 +30,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var observationRepository: ObservationRepository
 
     private var PERMISSION: Int = 100
-    private var ENABLED_LOCATION: Boolean = false
+    private var ALLOWEDLOCATION: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        ALLOWEDLOCATION = checkPermissions(android.Manifest.permission.ACCESS_COARSE_LOCATION,android.Manifest.permission.ACCESS_FINE_LOCATION )
 
         observationRepository = ObservationRepository(application)
         observationList = observationRepository.getObservations("desc")
@@ -52,10 +55,13 @@ class MainActivity : AppCompatActivity() {
 
         fab.setOnClickListener { view ->
         val intent = Intent(this, ObservationInput::class.java)
-            intent.putExtra("ENABLED_LOCATION", ENABLED_LOCATION)
+            intent.putExtra("LOCATION_ALLOWED", ALLOWEDLOCATION)
             startActivity(intent)
+
+
+
         }
-        checkPermissions(android.Manifest.permission.ACCESS_COARSE_LOCATION,android.Manifest.permission.ACCESS_FINE_LOCATION )
+
 
 
     }
@@ -87,23 +93,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-private fun checkPermissions(vararg permissions: String){
+private fun checkPermissions(vararg permissions: String):Boolean{
     val permissionsGranted = permissions.toList().all{
         ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
     }
     if(!permissionsGranted){
         ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION),
             PERMISSION)
-
+        return permissionsGranted
     }
-
+return permissionsGranted
 }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when(requestCode){
             PERMISSION -> {
                 if(grantResults.isNotEmpty()){
-                    ENABLED_LOCATION = grantResults.all { it == PackageManager.PERMISSION_GRANTED }
+                   ALLOWEDLOCATION = grantResults.all { it == PackageManager.PERMISSION_GRANTED }
 
                 }
             }
