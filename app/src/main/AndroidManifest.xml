@@ -18,6 +18,9 @@
                 android:label="@string/title_activity_observation_input"
                 android:parentActivityName=".MainActivity"
                 android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.GET_CONTENT"/>
+            </intent-filter>
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.example.observationdatabase.MainActivity"/>
