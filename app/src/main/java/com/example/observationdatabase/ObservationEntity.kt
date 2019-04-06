@@ -1,12 +1,9 @@
 package com.example.observationdatabase
 
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
-import android.arch.persistence.room.TypeConverter
-import android.arch.persistence.room.TypeConverters
+import android.arch.persistence.room.*
+import android.graphics.Bitmap
 import java.sql.Date
-import java.sql.Timestamp
-import java.time.LocalDateTime
+
 
 
 @Entity
@@ -20,6 +17,8 @@ data class ObservationEntity(
     var date: Date?,
     var timestamp: Long?,
     var latitude: String?,
-    var longitude: String?
+    var longitude: String?,
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    var image:Bitmap? = null
 
 )

@@ -1,6 +1,9 @@
 package com.example.observationdatabase
 
 import android.arch.persistence.room.TypeConverter
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import java.io.ByteArrayOutputStream
 import java.sql.Date
 
 class Converters {
@@ -11,5 +14,16 @@ class Converters {
     @TypeConverter
     fun fromDate(date:Date?):Long?{
         return if(date == null) null else date.time
+    }
+    @TypeConverter
+    fun toByteArray(bitmap:Bitmap):ByteArray?{
+       var stream:ByteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        return stream.toByteArray()
+    }
+
+    @TypeConverter
+    fun fromByteArray(byteArray: ByteArray):Bitmap?{
+        return BitmapFactory.decodeByteArray(byteArray,0,byteArray.size)
     }
 }

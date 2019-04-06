@@ -144,7 +144,8 @@ class ObservationInput : AppCompatActivity() {
         rarity = rarities.getSelectedItem().toString()
         note = notes.text.toString()
         val dateTime = Date(System.currentTimeMillis())
-        val observation = ObservationEntity(id= 0,species = species, rarity = rarity, notes = note,date = dateTime, timestamp = dateTime.time, latitude = latitude, longitude = longitude)
+
+        val observation = ObservationEntity(id= 0,species = species, rarity = rarity, notes = note,date = dateTime, timestamp = dateTime.time, latitude = latitude, longitude = longitude, image = loadedImage)
         repo.insertObservation(observation)
 
 
