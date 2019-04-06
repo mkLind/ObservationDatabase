@@ -39,6 +39,9 @@ import java.io.IOException
 import java.io.InputStream
 import java.sql.Date
 import kotlin.math.round
+import android.graphics.Bitmap.Config.RGB_565
+import android.graphics.drawable.BitmapDrawable
+import android.provider.DocumentsContract
 
 class ObservationInput : AppCompatActivity() {
     lateinit var rarities:Spinner
@@ -190,36 +193,19 @@ class ObservationInput : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        Log.d("ACTIVITY________REQUEST","" + requestCode)
+
         when(requestCode){
             PICK_IMAGE -> {
                 if(resultCode == Activity.RESULT_OK){
 
-                    Log.d("ACTIVITY________RESULT","" + resultCode)
-
                     if(data != null){
 
                         var imageUri:Uri = Uri.parse(data!!.dataString)
-                        Log.d("ACTIVITY________IMGPATH","" + File(getRealPath(imageUri)).absolutePath)
                         try{
-                            Log.d("ABSOLUTE PATH","" + File(getRealPath(imageUri)).absolutePath)
-/*
-                                                            //loadedImage = MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
-                                                           //loadedImage = BitmapFactory.decodeFile(File(getRealPath(imageUri)).absolutePath)
-                                                          // loadedImage = FetchImageAsync(File(getRealPath(imageUri))).execute()
-                                                         //var input:InputStream = this.contentResolver.openInputStream(imageUri)
-                                                        //loadedImage = BitmapFactory.decodeStream(input)
-                                                       ||var thumbnail:Bitmap = ThumbnailUtils.extractThumbnail(loadedImage, R.dimen.image_thumbnail_width_form,R.dimen.image_thumbnail_height_form)
-                                                       ||image.setImageBitmap(thumbnail)
-
-
-*/
-                                                          Glide.with(this)
-                                                              .load(File(getRealPath(imageUri)).absolutePath)
-                                                              .format(DecodeFormat.PREFER_ARGB_8888)
-                                                              .override(R.dimen.image_thumbnail_width_form, R.dimen.image_thumbnail_height_form)
-                                                              .into(image)
-
+                            var file = File(getRealPath(imageUri))
+                            var uri:Uri = Uri.fromFile(file)
+                            loadedImage = MediaStore.Images.Media.getBitmap(contentResolver, uri)
+                            image.setImageBitmap(loadedImage)
                        }catch(e:IOException){
                            Log.d("IOEXCEPTION", "" + e)
 
