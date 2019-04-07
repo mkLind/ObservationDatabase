@@ -39,9 +39,10 @@ import java.io.IOException
 import java.io.InputStream
 import java.sql.Date
 import kotlin.math.round
-import android.graphics.Bitmap.Config.RGB_565
+import android.graphics.Bitmap.Config.*
 import android.graphics.drawable.BitmapDrawable
 import android.provider.DocumentsContract
+
 
 class ObservationInput : AppCompatActivity() {
     lateinit var rarities:Spinner
@@ -58,7 +59,7 @@ class ObservationInput : AppCompatActivity() {
     lateinit var addImage:Button
     lateinit var repo:ObservationRepository
     lateinit var image:ImageView
-    lateinit var loadedImage:Bitmap
+    lateinit var imageUri: String
     var PICK_IMAGE:Int = 1
     var ENABLEDLOCATION = 2
     var LOCATIONALLOWED = false
@@ -73,8 +74,7 @@ class ObservationInput : AppCompatActivity() {
         repo = ObservationRepository(application)
         image = findViewById(R.id.speciesImage)
         LOCATIONALLOWED= intent.getBooleanExtra("LOCATION_ALLOWED", false)
-
-
+        imageUri = ""
 
         ArrayAdapter.createFromResource(
             this,
@@ -144,9 +144,22 @@ class ObservationInput : AppCompatActivity() {
         rarity = rarities.getSelectedItem().toString()
         note = notes.text.toString()
         val dateTime = Date(System.currentTimeMillis())
+        var observation:ObservationEntity
+           observation = ObservationEntity(
+               id = 0,
+               species = species,
+               rarity = rarity,
+               notes = note,
+               date = dateTime,
+               timestamp = dateTime.time,
+               latitude = latitude,
+               longitude = longitude,
+               imageUri = imageUri
+           )
+           repo.insertObservation(observation)
 
-        val observation = ObservationEntity(id= 0,species = species, rarity = rarity, notes = note,date = dateTime, timestamp = dateTime.time, latitude = latitude, longitude = longitude, image = loadedImage)
-        repo.insertObservation(observation)
+
+
 
 
     }
@@ -201,17 +214,17 @@ class ObservationInput : AppCompatActivity() {
 
                     if(data != null){
 
-                        var imageUri:Uri = Uri.parse(data!!.dataString)
+                        var uri:Uri = Uri.parse(data!!.dataString)
                         try{
-                            var file = File(getRealPath(imageUri))
+                            var file = File(getRealPath(uri))
                             var uri:Uri = Uri.fromFile(file)
-                            loadedImage = MediaStore.Images.Media.getBitmap(contentResolver, uri)
+                            imageUri = uri.toString()
+                            var loadedImage:Bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
                             image.setImageBitmap(loadedImage)
                        }catch(e:IOException){
-                           Log.d("IOEXCEPTION", "" + e)
 
                        }catch(e:FileNotFoundException){
-                           Log.d("FILENOTFOUND", "" + e)
+
                        }
 
 
@@ -219,7 +232,6 @@ class ObservationInput : AppCompatActivity() {
 
                }
            }ENABLEDLOCATION ->{
-            Log.d("LOCATION","ENABLED")
             if(isLocationEnabled() && LOCATIONALLOWED){
                 getLocation()
             }

@@ -2,6 +2,7 @@ package com.example.observationdatabase
 
 import android.arch.persistence.room.*
 import android.graphics.Bitmap
+import android.net.Uri
 import java.sql.Date
 
 
@@ -18,7 +19,6 @@ data class ObservationEntity(
     var timestamp: Long?,
     var latitude: String?,
     var longitude: String?,
-    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
-    var image:Bitmap? = null
+    var imageUri: String?
 
 )
