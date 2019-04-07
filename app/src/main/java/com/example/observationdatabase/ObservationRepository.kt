@@ -9,18 +9,22 @@ class ObservationRepository(application: Application) {
 
     private var observationData: List<ObservationEntity>
     private val observationDao: ObservationDao
+    private var database:ObservationDatabase
     init{
-        val observationDatabase = ObservationDatabase.getDb(application)
-        observationDao = observationDatabase.observationDao()
+        database = ObservationDatabase.getDb(application)
+        observationDao = database.observationDao()
         observationData = FetchAsync(observationDao).execute().get()
+    }
+    fun emptyDatabase(){
+        database.clearAllTables()
     }
 
     fun getObservations(sortOrder:String):List<ObservationEntity>{
-        if(sortOrder == "desc") {
-            observationData = observationData.sortedBy({ selector(it) })
+        if(sortOrder == "oldest") {
+            observationData =FetchAsync(observationDao).execute().get().sortedBy({ selector(it) })
 
-        }else if(sortOrder.equals("asc")){
-            observationData = observationData.sortedBy({ selector(it) }).asReversed()
+        }else if(sortOrder == "newest"){
+            observationData = FetchAsync(observationDao).execute().get().sortedBy({ selector(it) }).asReversed()
 
         }
 
@@ -28,9 +32,12 @@ class ObservationRepository(application: Application) {
     }
     fun insertObservation(obs:ObservationEntity){
         InsertAsync(observationDao).execute(obs)
-    }
 
-    fun selector(observation: ObservationEntity): Long? = observation.timestamp
+    }
+    fun deleteObservation(obs:ObservationEntity){
+        DeleteAsync(observationDao).execute(obs)
+    }
+    private fun selector(observation: ObservationEntity): Long? = observation.timestamp
 
     private class InsertAsync internal constructor(private val observationDao: ObservationDao):AsyncTask<ObservationEntity, Void, Void>() {
         override fun doInBackground(vararg params: ObservationEntity): Void? {
@@ -39,10 +46,21 @@ class ObservationRepository(application: Application) {
         }
 
     }
+    private class DeleteAsync internal constructor(private val observationDao: ObservationDao):AsyncTask<ObservationEntity, Void, Void>() {
+        override fun doInBackground(vararg params: ObservationEntity): Void? {
+            observationDao.deleteObservation(params[0])
+            return null
+        }
+
+
+
+    }
     private class FetchAsync internal constructor(private val observationDao: ObservationDao):AsyncTask<Void, Void, List<ObservationEntity>>(){
         override fun doInBackground(vararg params: Void?): List<ObservationEntity> {
             return observationDao.loadAllObservations()
         }
+
+
 
     }
 

@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         ALLOWEDLOCATION = checkPermissions(android.Manifest.permission.ACCESS_COARSE_LOCATION,android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.READ_EXTERNAL_STORAGE)
 
         observationRepository = ObservationRepository(application)
-        observationList = observationRepository.getObservations("desc")
+        observationList = observationRepository.getObservations("newest")
 
 
         viewManager = LinearLayoutManager(this)
@@ -77,15 +77,15 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.order_ascending->{
+            R.id.order_newest_first->{
 
-                observationList = observationRepository.getObservations("asc")
+                observationList = observationRepository.getObservations("newest")
                 viewAdapter.update(observationList)
                 return true
             }
-            R.id.order_descending->{
+            R.id.order_oldest_first->{
 
-                observationList = observationRepository.getObservations("desc")
+                observationList = observationRepository.getObservations("oldest")
                 viewAdapter.update(observationList)
                 return true
             }

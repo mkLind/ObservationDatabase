@@ -97,6 +97,7 @@ class ObservationInput : AppCompatActivity() {
 
             startActivityForResult(intent, PICK_IMAGE)
         }
+        notes.imeOptions = EditorInfo.IME_ACTION_DONE
         notes.setOnEditorActionListener { v, actionId, event ->
             if(actionId == EditorInfo.IME_ACTION_DONE){
                 processForm()
@@ -150,7 +151,6 @@ class ObservationInput : AppCompatActivity() {
                species = species,
                rarity = rarity,
                notes = note,
-               date = dateTime,
                timestamp = dateTime.time,
                latitude = latitude,
                longitude = longitude,

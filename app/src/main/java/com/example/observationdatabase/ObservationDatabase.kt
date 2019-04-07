@@ -6,7 +6,6 @@ import android.os.AsyncTask
 
 
 @Database(entities = [(ObservationEntity::class)],version = 1)
-@TypeConverters(Converters::class)
 abstract class ObservationDatabase:RoomDatabase(){
     abstract fun observationDao(): ObservationDao
     companion object DatabaseSingleton{
@@ -29,9 +28,6 @@ abstract class ObservationDatabase:RoomDatabase(){
                 return instance
             }
 
-        }
-        fun destroyDb(){
-            dbInstance = null
         }
 
     }

@@ -38,8 +38,8 @@ class ObservationAdapter(private var observations: List<ObservationEntity>):Recy
         holder.rarity.text = "Rarity: " + observations[position].rarity
         holder.notes.text = observations[position].notes
 
-        holder.date.text = "Date: " + dateFormatter.format(observations[position].date)
-        holder.time.text = "Time: " + timeFormatter.format(observations[position].date)
+        holder.date.text = "Date: " + dateFormatter.format(observations[position].timestamp)
+        holder.time.text = "Time: " + timeFormatter.format(observations[position].timestamp)
 
         holder.latitude.text = "Lat. " + observations[position].latitude
         holder.longitude.text = "Lon. " + observations[position].longitude

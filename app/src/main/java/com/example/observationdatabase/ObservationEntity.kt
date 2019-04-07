@@ -15,7 +15,6 @@ data class ObservationEntity(
     var species: String?,
     var rarity: String?,
     var notes: String?,
-    var date: Date?,
     var timestamp: Long?,
     var latitude: String?,
     var longitude: String?,
