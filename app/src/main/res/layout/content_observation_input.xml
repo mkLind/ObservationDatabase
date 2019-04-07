@@ -125,7 +125,8 @@
                     android:id="@+id/speciesImage"
                     android:layout_marginTop="40dp"
                     android:background="@drawable/round_corner"
-                    android:layout_marginLeft="1dp"/>
+                    android:layout_marginLeft="1dp"
+                    tools:srcCompat="@android:drawable/ic_menu_gallery"/>
 
             <TextView
                     android:text="@string/observation_image"
