@@ -1,0 +1,15 @@
+Description of solution.
+
+Observation database is a native Android application that uses Kotlin as the language. In the main view that opens once the application is launched, all the observations are listed in recycler view. The user can order the observations based on their timestamp. The ordering can be changed by selecting it from the appbars overflow menu. 
+A new observation can be added by pressing the floating action button. New activity is opened by pressing the button. 
+In the activity the user can insert a name for the species and write some notes related to the observation. Rarity for the observation can be selected from spinner the items of which are predefined in arrays.xml. At the bottom of the form, there is button for saving the observation and for adding an image. Before the observation can be saved, at least a name should be provided for the observed species. By pressing the button for adding an image, a gallery activity is opened. Once the user selects an image, it is set to the slot reserved for it in the observation input view. Data is persisted by using ROOM.
+
+In addition to these, the input form also saves a timestamp and location. Both are retrieved automatically. Permissions are asked for accessing location and reading storage when the user opens the application for the first time. So if the user declines these, location is simply not saved. When it comes to trying to store the image without permission, the permission is asked again.
+
+If the user opens the observation input activity so that location services are not on, the application prompts the user to turn on location. If user selects "no", location is ignored, even though permission for it is granted. The application fetches the location only once. For it it uses location manager with location listner by calling requestSingleUpdate.
+
+Experience:
+
+For me the task was at the same time interesting and challenging. I have never done anything with Kotlin before, so I had some learning to do. Luckily I have background in Java, which I consider a factor that made things a bit easier. When compared to Java I think that Kotlin streamlines things.
+The task also upgraded my knowledge of Android. For example, I have never used Location functionalities to retrieve position or created prompts to ask for permissions before. Room was also a new thing for me.  
+
