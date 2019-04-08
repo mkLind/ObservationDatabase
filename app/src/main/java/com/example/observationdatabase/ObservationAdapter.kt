@@ -18,8 +18,7 @@ import java.io.File
 
 
 class ObservationAdapter(private var observations: List<ObservationEntity>):RecyclerView.Adapter<ObservationAdapter.ObservationHolder>() {
-
-
+    
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ObservationHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.observation_item, parent, false)
         return ObservationHolder(view)
@@ -29,7 +28,7 @@ class ObservationAdapter(private var observations: List<ObservationEntity>):Recy
         return observations.size
 
     }
-
+    // Populate the observation item of recycler view with data from the adapter
     override fun onBindViewHolder(holder: ObservationHolder, position: Int) {
         val dateFormatter = SimpleDateFormat("dd.MM.yyyy")
         val timeFormatter = SimpleDateFormat("HH:mm")
@@ -50,7 +49,7 @@ class ObservationAdapter(private var observations: List<ObservationEntity>):Recy
 
     }
 
-
+    // Defined observation holder and fetch all the recycler view elements from the observation item layout
     class ObservationHolder(observationView: View) : RecyclerView.ViewHolder(observationView){
         val species = observationView.findViewById(R.id.species_name) as TextView
         val rarity = observationView.findViewById(R.id.rarity) as TextView
@@ -61,6 +60,7 @@ class ObservationAdapter(private var observations: List<ObservationEntity>):Recy
         val longitude = observationView.findViewById(R.id.longitude) as TextView
         val image = observationView.findViewById(R.id.observationImage) as ImageView
     }
+    // Update the adapter with this method, when the ordering of the items has changed
  fun update(sortedObservations:List<ObservationEntity>){
      observations = sortedObservations
      this.notifyDataSetChanged()

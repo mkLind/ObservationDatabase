@@ -62,9 +62,9 @@ fun testOrdering(){
 
 
     var observations_newest:List<ObservationEntity> = repo.getObservations("newest")
-    //assertEquals(testarray.size, observations_newest.size)
+
     var observations_oldest:List<ObservationEntity> = repo.getObservations("oldest")
-    //assertEquals(testarray.size, observations_oldest.size)
+
 
     for(i in 1..observations_newest.size - 1){
         var date = Date(observations_newest[i - 1].timestamp as Long)

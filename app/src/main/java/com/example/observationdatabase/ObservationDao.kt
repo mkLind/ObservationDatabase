@@ -1,7 +1,7 @@
 package com.example.observationdatabase
 
 import android.arch.persistence.room.*
-
+// Database access object. define operations for use with the database
 @Dao
 interface ObservationDao {
     @Query("SELECT * FROM ObservationEntity")

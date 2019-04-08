@@ -6,7 +6,7 @@ import android.net.Uri
 import java.sql.Date
 
 
-
+// Define the table and the attributes used in the database
 @Entity
 
 data class ObservationEntity(

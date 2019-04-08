@@ -1,9 +1,7 @@
 package com.example.observationdatabase
 
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.LocationManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
@@ -13,14 +11,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import kotlinx.coroutines.*
 import kotlinx.android.synthetic.main.activity_main.*
-import java.lang.RuntimeException
-import android.support.v7.graphics.drawable.DrawableWrapper;
-import com.google.android.gms.location.FusedLocationProviderClient
-import java.util.jar.Manifest
-
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -28,24 +19,37 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewManager: LinearLayoutManager
     private lateinit var observationList: List<ObservationEntity>
     private lateinit var observationRepository: ObservationRepository
+    private var PERMISSIONREQUEST: Int = 100
 
-    private var PERMISSION: Int = 100
-    private var ALLOWEDLOCATION: Boolean = false
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        ALLOWEDLOCATION = checkPermissions(android.Manifest.permission.ACCESS_COARSE_LOCATION,android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.READ_EXTERNAL_STORAGE)
 
+
+        // Check if the user has given the permission for the application to access location and to read memory
+        // Save the result in a variable. If at least one is not granted, ask for permissions.
+        var permissionsGranted = verifyPermissionGranted(android.Manifest.permission.ACCESS_COARSE_LOCATION,android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+
+        if(!permissionsGranted){
+
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.READ_EXTERNAL_STORAGE),
+                PERMISSIONREQUEST)
+        }
+        // Instantiate observation repository and fetch the observations so that they are ordered from newest to oldest
         observationRepository = ObservationRepository(application)
         observationList = observationRepository.getObservations("newest")
 
-
+        // Linear layout manager and ObservationAdapter for the Recycler view of the Main activity
         viewManager = LinearLayoutManager(this)
         viewAdapter = ObservationAdapter(observationList)
 
-
+        // Define the recycler view and set the adapter and layout manager
         recyclerView = findViewById<RecyclerView>(R.id.observations).apply{
             setHasFixedSize(true)
             layoutManager = viewManager
@@ -53,9 +57,24 @@ class MainActivity : AppCompatActivity() {
         }
         viewAdapter.notifyDataSetChanged()
 
+
+
+        // Set on click listener to the floating action button.
+        // For storage and location permissions pass a boolean extra. True if the permission has been granted, false otherwise
         fab.setOnClickListener { view ->
         val intent = Intent(this, ObservationInput::class.java)
-            intent.putExtra("LOCATION_ALLOWED", ALLOWEDLOCATION)
+
+            if(verifyPermissionGranted(android.Manifest.permission.ACCESS_COARSE_LOCATION,android.Manifest.permission.ACCESS_FINE_LOCATION)) {
+                intent.putExtra("LOCATION_ALLOWED",true)
+            }else{
+                intent.putExtra("LOCATION_ALLOWED",false)
+            }
+            if(verifyPermissionGranted(android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                intent.putExtra("STORAGE_READ_ALLOWED", true)
+            }else{
+                intent.putExtra("STORAGE_READ_ALLOWED", false)
+            }
+
             startActivity(intent)
 
 
@@ -71,11 +90,9 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // When the user changes the ordering of the items displayed in the main activity,
+        // the change of ordering is handled here
         return when (item.itemId) {
             R.id.order_newest_first->{
 
@@ -93,29 +110,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-private fun checkPermissions(vararg permissions: String):Boolean{
-    val permissionsGranted = permissions.toList().all{
-        ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
-    }
-    if(!permissionsGranted){
-        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.READ_EXTERNAL_STORAGE),
-            PERMISSION)
-        return permissionsGranted
-    }
-return permissionsGranted
-}
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        when(requestCode){
-            PERMISSION -> {
-                if(grantResults.isNotEmpty()){
-                   ALLOWEDLOCATION = grantResults.all { it == PackageManager.PERMISSION_GRANTED }
-
-                }
-            }
-
+    // A method for verifying that the permissions passed as varargs have been granted
+    private fun verifyPermissionGranted(vararg  permissions: String):Boolean{
+        var granted = permissions.toList().all{
+            ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
         }
+        return granted
     }
+
+
 
 
 }
