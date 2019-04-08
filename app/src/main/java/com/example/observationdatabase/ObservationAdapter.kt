@@ -1,20 +1,13 @@
 package com.example.observationdatabase
 
-import android.app.Application
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
-import android.provider.MediaStore
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import java.text.SimpleDateFormat
-import android.content.ContentResolver
-import java.io.File
 
 
 class ObservationAdapter(private var observations: List<ObservationEntity>):RecyclerView.Adapter<ObservationAdapter.ObservationHolder>() {

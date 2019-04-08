@@ -5,10 +5,9 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewManager: LinearLayoutManager
     private lateinit var observationList: List<ObservationEntity>
     private lateinit var observationRepository: ObservationRepository
-    private var PERMISSIONREQUEST: Int = 100
+    private val permissionRequest: Int = 100
 
 
 
@@ -34,12 +33,12 @@ class MainActivity : AppCompatActivity() {
 
         // Check if the user has given the permission for the application to access location and to read memory
         // Save the result in a variable. If at least one is not granted, ask for permissions.
-        var permissionsGranted = verifyPermissionGranted(android.Manifest.permission.ACCESS_COARSE_LOCATION,android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        val permissionsGranted = verifyPermissionGranted(android.Manifest.permission.ACCESS_COARSE_LOCATION,android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.READ_EXTERNAL_STORAGE)
 
         if(!permissionsGranted){
 
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.READ_EXTERNAL_STORAGE),
-                PERMISSIONREQUEST)
+                permissionRequest)
         }
         // Instantiate observation repository and fetch the observations so that they are ordered from newest to oldest
         observationRepository = ObservationRepository(application)
@@ -61,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
         // Set on click listener to the floating action button.
         // For storage and location permissions pass a boolean extra. True if the permission has been granted, false otherwise
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener {
         val intent = Intent(this, ObservationInput::class.java)
 
             if(verifyPermissionGranted(android.Manifest.permission.ACCESS_COARSE_LOCATION,android.Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -112,10 +111,10 @@ class MainActivity : AppCompatActivity() {
 
     // A method for verifying that the permissions passed as varargs have been granted
     private fun verifyPermissionGranted(vararg  permissions: String):Boolean{
-        var granted = permissions.toList().all{
+        return  permissions.toList().all{
             ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
         }
-        return granted
+
     }
 
 

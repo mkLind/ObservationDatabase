@@ -1,9 +1,6 @@
 package com.example.observationdatabase
 
 import android.arch.persistence.room.*
-import android.graphics.Bitmap
-import android.net.Uri
-import java.sql.Date
 
 
 // Define the table and the attributes used in the database

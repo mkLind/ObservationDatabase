@@ -2,7 +2,6 @@ package com.example.observationdatabase
 
 import android.arch.persistence.room.*
 import android.content.Context
-import android.os.AsyncTask
 // The ObservationEntity and ObservationDAO is bind together here. The Application uses ROOM database
 // Return database instance if one already exists, otherwise build a new one by using synchronized operation
 

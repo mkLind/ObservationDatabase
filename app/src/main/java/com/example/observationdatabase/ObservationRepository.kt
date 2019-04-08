@@ -2,17 +2,15 @@ package com.example.observationdatabase
 
 import android.app.Application
 import android.os.AsyncTask
-import android.util.Log
-import java.sql.Date
+
 // Class for binding database and its operations together
 class ObservationRepository(application: Application) {
 
     private var observationData: List<ObservationEntity>
     private val observationDao: ObservationDao
-    private var database:ObservationDatabase
+    private var database:ObservationDatabase = ObservationDatabase.getDb(application)
     // Initialize database and fetch stored observations
     init{
-        database = ObservationDatabase.getDb(application)
         observationDao = database.observationDao()
         observationData = FetchAsync(observationDao).execute().get()
     }
