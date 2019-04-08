@@ -9,4 +9,6 @@
     <dimen name="image_thumbnail_height_form">133dp</dimen>
     <dimen name="table_cell_w">80dp</dimen>
     <dimen name="table_cell_h">40dp</dimen>
+    <dimen name ="button_width">130dp</dimen>
+    <dimen name ="button_height">60dp</dimen>
 </resources>

@@ -81,8 +81,13 @@ class ObservationInput : AppCompatActivity() {
         // Fetch save button and in click lister, process observation from and start main activity
         save = findViewById(R.id.save_button)
         save.setOnClickListener {
-            processForm()
-            startActivity(Intent(applicationContext, MainActivity::class.java))
+            // Require at least name for species before saving observation
+            if(speciesElement.text.toString() != "") {
+                processForm()
+                startActivity(Intent(applicationContext, MainActivity::class.java))
+            }else{
+                Toast.makeText(this, "Provide at least the name for species",Toast.LENGTH_SHORT).show()
+            }
         }
 
 
@@ -103,19 +108,6 @@ class ObservationInput : AppCompatActivity() {
                     1)
             }
 
-        }
-
-        // Set on editor action listnere. If the user presses done in the keypad once the field for notes is active,
-        // Entry is saved
-        notes.imeOptions = EditorInfo.IME_ACTION_DONE
-        notes.setOnEditorActionListener { v, actionId, event ->
-            if(actionId == EditorInfo.IME_ACTION_DONE){
-                processForm()
-                startActivity(Intent(applicationContext, MainActivity::class.java))
-                true
-            }else{
-                false
-            }
         }
 
 
@@ -166,21 +158,24 @@ class ObservationInput : AppCompatActivity() {
 
         val dateTime = Date(System.currentTimeMillis())
 
-    // Define Entity with required attributes
-        var observation:ObservationEntity
-           observation = ObservationEntity(
-               id = 0,
-               species = species,
-               rarity = rarity,
-               notes = note,
-               timestamp = dateTime.time,
-               latitude = latitude,
-               longitude = longitude,
-               imageUri = imageUri
-           )
+    // Define Entity with required attributes. Require species name at least
+    var observation: ObservationEntity
 
-            // Save the observations to database.
-           repo.insertObservation(observation)
+        observation = ObservationEntity(
+            id = 0,
+            species = species,
+            rarity = rarity,
+            notes = note,
+            timestamp = dateTime.time,
+            latitude = latitude,
+            longitude = longitude,
+            imageUri = imageUri
+        )
+        // Save the observations to database.
+        repo.insertObservation(observation)
+
+
+
 
 
 
