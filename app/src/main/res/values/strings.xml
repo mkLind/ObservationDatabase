@@ -3,7 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_order_descending">Oldest first</string>
     <string name="action_order_ascending">Newest first</string>
-    <string name="title_activity_observation_input">Observation_input</string>
+    <string name="title_activity_observation_input">Observation input</string>
     <string name="species_hint">Species</string>
     <string name="note_hint">Note</string>
     <string name="rarity_hint">Rarity</string>
